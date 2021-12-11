@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CalenderProject</string>
+    <string name="previousMonth"><![CDATA[<-]]></string>
+    <string name="nextMonth"><![CDATA[->]]></string>
 </resources>
