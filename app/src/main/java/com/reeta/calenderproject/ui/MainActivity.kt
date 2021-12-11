@@ -1,13 +1,18 @@
 package com.reeta.calenderproject.ui
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.reeta.calenderproject.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,10 +28,16 @@ class MainActivity : AppCompatActivity(),ClickListner,View.OnClickListener {
     lateinit var monthOfYear:TextView
     lateinit var selectedDate:LocalDate
     lateinit var calenderAdapter: CalenderAdapter
+
+    lateinit var dialog: Dialog
+    lateinit var id:EditText
+    lateinit var task:EditText
+    lateinit var save:Button
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        dialog = this?.let { Dialog(it) }!!
         initialize()
         selectedDate= LocalDate.now()
         setMonthView()
@@ -48,7 +59,7 @@ class MainActivity : AppCompatActivity(),ClickListner,View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun monthYearFromDate(date: LocalDate): String {
-        var formatter :DateTimeFormatter=DateTimeFormatter.ofPattern("MMMMM yyyy")
+        var formatter :DateTimeFormatter=DateTimeFormatter.ofPattern("MMMM yyyy")
         return date.format(formatter)
     }
 
@@ -96,8 +107,15 @@ class MainActivity : AppCompatActivity(),ClickListner,View.OnClickListener {
     }
 
     override fun onDateClick(positon: Int, day: String) {
+        setDailog()
+    }
 
-            Toast.makeText(this, "day $positon and $day", Toast.LENGTH_SHORT).show()
-        }
+     fun setDailog(){
+        dialog.setContentView(R.layout.add_task_dialog)
+        id=dialog.findViewById(R.id.edtUserId)
+        task=dialog.findViewById(R.id.edtUserTask)
+        save=dialog.findViewById(R.id.btnDave)
+         dialog.show()
+    }
 
 }
